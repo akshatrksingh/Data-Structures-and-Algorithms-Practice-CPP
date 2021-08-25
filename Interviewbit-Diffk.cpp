@@ -1,26 +1,25 @@
-int Solution::diffPossible(vector<int> &arr, int k) 
+int Solution::diffPossible(vector<int> &v, int k) 
 {
-    if(arr.size() == 1)
+    if(v.size() == 1)
     {
         return 0;
     }
 
     int p1 = 0;
     int p2 = 1;
-    while(p1 < p2 && p2 < arr.size())
+    while(p1 < v.size() && p2 < v.size())
     {
-        if(arr[p2]-arr[p1] == k)
+        if(v[p2]-v[p1] == k && p1 != p2)
         {
             return 1;
         }
-        else if(arr[p2]-arr[p1] < k)
+        else if(v[p2]-v[p1] < k)
         {
             p2++;
         }
         else
         {
             p1++;
-            p2 = p1+1;
         }
     }
     return 0;
