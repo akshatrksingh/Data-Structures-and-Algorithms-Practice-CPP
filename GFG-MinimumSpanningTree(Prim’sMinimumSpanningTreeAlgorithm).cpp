@@ -6,7 +6,7 @@ class Solution
        vector<int> vis(V,0);
        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> q; // min heap
        int ans = 0;
-       q.push({0,0});
+       q.push({0,0});     // {weight, node}      
        while(!q.empty())
        {
            auto best = q.top();   //edge with min weight
