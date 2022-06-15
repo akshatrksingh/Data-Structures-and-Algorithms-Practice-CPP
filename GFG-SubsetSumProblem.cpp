@@ -1,3 +1,4 @@
+// If the count of subsets with th given Sum sum has been asked then 2d int vector instead of 2d bool vector and + instead of || in the linec commented with **
 class Solution
 {   
     public:
@@ -23,7 +24,7 @@ class Solution
                     }
                     else if(arr[i-1] <= j)
                     {
-                        dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j];
+                        dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j];   // **
                     }
                     else
                     {
