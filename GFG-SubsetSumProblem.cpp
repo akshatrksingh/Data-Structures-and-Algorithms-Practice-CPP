@@ -1,4 +1,11 @@
 // If the count of subsets with the given sum has been asked then 2d int vector instead of 2d bool vector and + instead of || in the linec commented with **
+/* If the count of partitions (into 2 subsets S1 and S2) has been asked 
+s1 - s2 = diff (given)
+s1 + s2=sum of array (logical)
+Therefore adding both eq we get :
+2s1= diff + sum of array
+s1= (diff + sum of array)/2;
+Problem reduces to find no of subsets with given sum */
 class Solution
 {   
     public:
