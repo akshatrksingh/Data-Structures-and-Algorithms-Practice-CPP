@@ -20,6 +20,12 @@ class Solution
                     {
                         dp[i][j] = true;          // {} is possible for sum = 0 if we are summing up nothing 
                     }
+                }
+            }
+            for(int i = 1; i < n+1; i++)
+            {
+                for(int j = 1; j < sum+1; j++)
+                {
                     else if(arr[i-1] <= j)
                     {
                         dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j];
