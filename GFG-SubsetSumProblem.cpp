@@ -1,4 +1,4 @@
-// If the count of subsets with th given Sum sum has been asked then 2d int vector instead of 2d bool vector and + instead of || in the linec commented with **
+// If the count of subsets with the given sum has been asked then 2d int vector instead of 2d bool vector and + instead of || in the linec commented with **
 class Solution
 {   
     public:
