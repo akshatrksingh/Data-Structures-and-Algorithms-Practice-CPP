@@ -1,3 +1,4 @@
+// If nPr instead of nCr then P(n, r) = r* P(n-1, r-1)+ P(n-1, r)  
 class Solution
 {
     public:
