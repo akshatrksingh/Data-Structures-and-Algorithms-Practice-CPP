@@ -1,3 +1,24 @@
+/*
+If instead of the length of the LCS, the LCS itself has to be returned, use backtracking after finding the dp[][] for length
+int i = m, j = n;
+string s = "";
+while(i > 0 && j > 0)
+{
+    if(a[i-1] == b[i-1])
+    {
+        s.push_back(a[i-1]);
+        i--;
+        j--;
+    }
+    else
+    {
+        if(t[i][j-1] > t[i-1][j]) 
+            j--;
+        else
+           i--;
+    }
+}
+*/
 class Solution
 {
     public:
