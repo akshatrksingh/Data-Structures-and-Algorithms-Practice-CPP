@@ -18,6 +18,7 @@ while(i > 0 && j > 0)
            i--;
     }
 }
+reverse(s.begin(), s.end());
 */
 class Solution
 {
