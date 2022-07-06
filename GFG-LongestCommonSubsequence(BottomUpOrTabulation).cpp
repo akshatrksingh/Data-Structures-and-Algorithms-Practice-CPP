@@ -12,7 +12,7 @@ while(i > 0 && j > 0)
     }
     else
     {
-        if(t[i][j-1] > t[i-1][j]) 
+        if(dp[i][j-1] > dp[i-1][j]) 
             j--;
         else
            i--;
