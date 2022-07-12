@@ -1,4 +1,3 @@
-/*
 // We can build a similar solution as https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 class Solution 
 {
@@ -16,7 +15,7 @@ class Solution
             return global_mx;  // return local_mx;
         }
 };
-*/
+/*
 class Solution 
 {
     public:
@@ -31,3 +30,4 @@ class Solution
             return profit;  
         }
 };
+*/
