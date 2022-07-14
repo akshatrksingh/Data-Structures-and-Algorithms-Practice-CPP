@@ -9,21 +9,23 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
-public:
-    int maxDepth(TreeNode* root) 
-    {
-        if(root == NULL)
-            return 0;
-        else
-            return max(maxDepth(root->left)+1, maxDepth(root->right)+1);
-    }
-    int diameterOfBinaryTree(TreeNode* root) 
-    {
-        if(root == NULL)
-            return 0;
-        else
-            return max(diameterOfBinaryTree(root->left), max(diameterOfBinaryTree(root->right), 
-                       maxDepth(root->left)+maxDepth(root->right)));
-    }
+class Solution 
+{
+    public:
+        int diam = 0; 
+        int maxDepth(TreeNode* root) 
+        {
+            if(root == NULL)
+                return 0;
+            
+            int l = maxDepth(root->left);
+            int r = maxDepth(root->right);
+            diam = max(diam, l+r);
+            return 1+max(l, r);
+        }
+        int diameterOfBinaryTree(TreeNode* root) 
+        {
+            int md = maxDepth(root);
+            return diam;  // Don't return md
+        }
 };
