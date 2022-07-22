@@ -1,12 +1,12 @@
 class Solution 
 {
     public:
-        bool isValid(vector<int> A, int N, int threshold, int max_divisor)
+        bool isValid(vector<int> A, int N, int threshold, int min_divisor)
         {
             int sum = 0;
             for(int i = 0; i < N; i++)
             {
-                sum += ceil(A[i]*1.0/max_divisor);
+                sum += ceil(A[i]*1.0/min_divisor);  // maximize min_divisor
             }
             if(sum < threshold)
                 return false;
