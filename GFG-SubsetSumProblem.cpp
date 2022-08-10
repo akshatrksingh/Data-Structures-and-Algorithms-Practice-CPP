@@ -1,5 +1,5 @@
 /* Count of subsets with the given sum
-If the count of subsets with the given sum has been asked then 2d int vector instead of 2d bool vector and + instead of || in the linec commented with **
+If the count of subsets with the given sum has been asked then 2d int vector instead of 2d bool vector and + instead of || in the line commented with **
 Also take care of edge case: given sum > array sum then return 0*/
 /* Target Sum
 If the count of partitions (into 2 subsets S1 and S2) has been asked 
