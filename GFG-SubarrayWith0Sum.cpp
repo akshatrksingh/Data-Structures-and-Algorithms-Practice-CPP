@@ -3,7 +3,7 @@ class Solution
     public:
     bool subArrayExists(int arr[], int n)
     {
-        unordered_map<int, bool> m;
+        unordered_map<int, int> m;
         int prefSum = 0;
         for(int i = 0; i < n; i++)
         {
@@ -11,7 +11,7 @@ class Solution
             if(m.find(prefSum) != m.end() || prefSum == 0)
                 return true;
             else
-                m[prefSum] = true;
+                m[prefSum]++;
         }
         return false;
     }
