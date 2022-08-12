@@ -1,21 +1,20 @@
 int Solution::strStr(const string s1, const string s2) 
 {
-    int n = s2.size();
+    int N = s1.size(), M = s2.size();
     string s;
-    for(auto it1 = s1.begin(); it1 < s1.end()-n+1; it1++)
+    for(int i = 0; i < N-M+1; i++)
     {
         s = "";
-        auto it2 = it1;
-        int tmp = n;
-        while(tmp--)
+        for(int j = 0; j < M; j++)
         {
-            s += *it2;
-            if(s == s2)
-            {
-                return it1-s1.begin();
-            }
-            it2++;
+            s += s1[i+j];
+        }
+        if(s == s2)
+        {
+            return i;
         }
     }
     return -1;
 }
+// TC: O(M*(N-M+1))
+// In order to improve the TC to O(N+M), use the KMP Algorithm
