@@ -23,34 +23,34 @@ reverse(s.begin(), s.end());
 class Solution
 {
     public:
-    int lcs(int x, int y, string s1, string s2)
-    {
-        int dp[x+1][y+1];        
-        memset(dp, -1, sizeof(dp));
-        for(int i = 0; i < x+1; i++)
+        int lcs(int x, int y, string s1, string s2)
         {
-            for(int j = 0; j < y+1; j++)
+            int dp[x+1][y+1];        
+            memset(dp, -1, sizeof(dp));
+            for(int i = 0; i <= x; i++)
             {
-                if(i == 0 || j == 0)
+                for(int j = 0; j <= y; j++)
                 {
-                    dp[i][j] = 0;
+                    if(i == 0 || j == 0)
+                    {
+                        dp[i][j] = 0;
+                    }
                 }
             }
-        }
-        for(int i = 1; i < x+1; i++)
-        {
-            for(int j = 1; j < y+1; j++)
+            for(int i = 1; i <= x; i++)
             {
-                if(s1[i-1] == s2[j-1])
+                for(int j = 1; j <= y; j++)
                 {
-                    dp[i][j] = 1 + dp[i-1][j-1];
-                }
-                else if(s1[i-1] != s2[j-1])
-                {
-                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                    if(s1[i-1] == s2[j-1])
+                    {
+                        dp[i][j] = 1 + dp[i-1][j-1];
+                    }
+                    else if(s1[i-1] != s2[j-1])
+                    {
+                        dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                    }
                 }
             }
+            return dp[x][y]; 
         }
-        return dp[x][y]; 
-    }
 };
