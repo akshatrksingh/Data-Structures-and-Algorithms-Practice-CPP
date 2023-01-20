@@ -17,7 +17,7 @@ class Solution
                     s = pre;
                     pre = tmp;
                 }
-                for(int j = 0; j < s.size(); j++)
+                for(int j = 0; j < pre.size(); j++)
                 {
                     if(pre[j] != s[j])
                     {
