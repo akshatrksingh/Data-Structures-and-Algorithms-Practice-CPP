@@ -7,7 +7,7 @@ class Solution
             {
                 return "";
             }
-            string pre = str[0], s;
+            string pre = str[0];
             for(int i = 1; i < str.size(); i++)
             {
                 string s = str[i], tmp;
