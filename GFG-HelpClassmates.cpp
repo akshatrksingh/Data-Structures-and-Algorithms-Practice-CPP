@@ -1,32 +1,19 @@
 class Solution
 {
-    
     public:
-    vector<int> help_classmate(vector<int> A, int n) 
+    vector<int> help_classmate(vector<int> nums, int n) 
     {
-        reverse(A.begin(), A.end());
-        stack<int> s;
-        vector<int> N; // to store the next smaller elements
-        int min = INT_MAX;
-        for(int i = 0; i < A.size(); i++)
+        vector<int> res(n, -1);
+        stack<int> st;
+        for (int i = 0; i < n; i++) 
         {
-            if(A[i] <= min)
+            while (!st.empty() && nums[st.top()] > nums[i]) 
             {
-                min = A[i];
-                N.push_back(-1);
+                res[st.top()] = nums[i];
+                st.pop();
             }
-            while(!s.empty())
-            {
-                if(s.top() < A[i])
-                {
-                    N.push_back(s.top());
-                    break;
-                }
-                s.pop();
-            }
-            s.push(A[i]);
+            st.push(i);
         }
-        reverse(N.begin(), N.end());
-        return N;
+        return res;
     } 
 };
