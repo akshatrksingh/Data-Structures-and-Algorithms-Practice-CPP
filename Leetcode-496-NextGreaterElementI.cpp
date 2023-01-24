@@ -3,16 +3,17 @@ class Solution
     public:
         vector<int> nextGreaterElement(vector<int> &nums1, vector<int> &nums2) 
         {
+            int n = nums2.size();
+            unordered_map <int, int> nge;
             stack<int> st;
-            unordered_map<int, int> nge;
-            for(int n: nums2)
+            for (int i = 0; i < n; i++) 
             {
-                while(!st.empty() && st.top() < n)
+                while (!st.empty() && nums2[st.top()] < nums2[i]) 
                 {
-                    nge[st.top()] = n;
+                    nge[nums2[st.top()]] = nums2[i];
                     st.pop();
                 }
-                st.push(n);
+                st.push(i);
             }
             vector<int> res;
             for (int n: nums1) 
