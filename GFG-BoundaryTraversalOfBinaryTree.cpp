@@ -16,15 +16,14 @@ class Solution
         }
         void left(Node *node)
         {
-            while(node)
-            {
-                if(!isLeaf(node))
-                    v_left.push_back(node->data);   
-                if(node->left)
-                    node = node->left;
-                else
-                    node = node->right;
-            }
+            if(node == NULL)
+                return;
+            if(!isLeaf(node))
+                v_left.push_back(node->data);   
+            if(node->left)
+                left(node->left);
+            else if(node->right)
+                left(node->right);
         }
         void leaf(Node *node)
         {
@@ -32,23 +31,19 @@ class Solution
                 return;
             if(isLeaf(node))
                 v_leaf.push_back(node->data);
-            if(node->left)
-                leaf(node->left);
-            if(node->right)
-                leaf(node->right);
+            leaf(node->left);
+            leaf(node->right);
         }
         void right(Node *node)
         {
-            while(node)
-            {
-                if(!isLeaf(node))
-                    v_right.push_back(node->data);   
-                if(node->right)
-                    node = node->right;
-                else 
-                    node = node->left;
-            }
-            reverse(v_right.begin(), v_right.end());
+            if(node == NULL)
+                return;
+            if(!isLeaf(node))
+                v_right.push_back(node->data);   
+            if(node->right)
+                right(node->right);
+            else if(node->left)
+                right(node->left);
         }
         vector<int> boundary(Node *root)
         {
@@ -58,7 +53,8 @@ class Solution
                 v.push_back(root->data);
             left(root->left);
             leaf(root);
-            right(root->right);  
+            right(root->right); 
+            reverse(v_right.begin(), v_right.end());
             for(int i: v_left)
                 v.push_back(i);
             for(int i: v_leaf)
