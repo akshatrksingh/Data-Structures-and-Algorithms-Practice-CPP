@@ -1,30 +1,30 @@
 class Solution 
 {
     public:
+        
+        string intersection(string &s1, string &s2)
+        {
+            int i = 0, n1 = s1.size(), n2 = s2.size(), n = min(n1, n2);
+            string in = "";
+            while(i < n && s1[i] == s2[i])
+            {
+                in += s1[i];
+                i++;
+            }
+            return in;
+        }
+        
         string longestCommonPrefix(vector<string>& str) 
         {
-            if(str.size() == 0)
+            int n = str.size();
+            if(n == 0)
             {
                 return "";
             }
-            string pre = str[0];
-            for(int i = 1; i < str.size(); i++)
+            string pre = str[0], tmp;
+            for(int i = 1; i < n; i++)
             {
-                string s = str[i], tmp;
-                if(pre.size() > s.size())
-                {
-                    tmp = s;
-                    s = pre;
-                    pre = tmp;
-                }
-                for(int j = 0; j < pre.size(); j++)
-                {
-                    if(pre[j] != s[j])
-                    {
-                        pre = s.substr(0, j);
-                        break;
-                    }
-                }
+                pre = intersection(pre, str[i]);
             }
             return pre;
         }
