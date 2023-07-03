@@ -38,10 +38,11 @@ class Solution
                 {
                     int avgSpaces = numSpaces / (numWords - 1);  // Average spaces to be added between words
                     int extraSpaces = numSpaces % (numWords - 1);  // Extra spaces to be added to the left slots
-
+                    int cnt = 1;
+                    
                     for (int k = i + 1; k < j; k++) 
                     {
-                        int spaces = (k - i <= extraSpaces) ? avgSpaces + 1 : avgSpaces;
+                        int spaces = (cnt++ <= extraSpaces) ? avgSpaces + 1 : avgSpaces;
                         line += string(spaces, ' ') + words[k];
                     }
                 }
