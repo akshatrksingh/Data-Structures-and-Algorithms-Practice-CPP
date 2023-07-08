@@ -86,6 +86,12 @@ class Solution
 
 /*
 // Trie and recursion : TLE
+#include <vector>
+#include <string>
+#include <unordered_map>
+
+using namespace std;
+
 class TrieNode 
 {
 public:
@@ -98,27 +104,43 @@ public:
     }
 };
 
+class Trie 
+{
+private:
+    TrieNode* root;
+
+public:
+    Trie() 
+    {
+        root = new TrieNode();
+    }
+
+    void insert(string& word) 
+    {
+        TrieNode* curr = root;
+        for (char ch : word) 
+        {
+            if (curr->children.find(ch) == curr->children.end()) 
+            {
+                curr->children[ch] = new TrieNode();
+            }
+            curr = curr->children[ch];
+        }
+        curr->isEndOfWord = true;
+    }
+
+    TrieNode* getRoot() 
+    {
+        return root;
+    }
+};
+
 class Solution 
 {
     private:
-    
-        TrieNode* root;
+        Trie trie;
 
-        void insert(string &word) 
-        {
-            TrieNode* curr = root;
-            for (char ch : word) 
-            {
-                if (curr->children.find(ch) == curr->children.end()) 
-                {
-                    curr->children[ch] = new TrieNode();
-                }
-                curr = curr->children[ch];
-            }
-            curr->isEndOfWord = true;
-        }
-
-        bool canWordBreak(string &s, int start, TrieNode* curr) 
+        bool canWordBreak(string& s, int start, TrieNode* curr) 
         {
             int n = s.length();
 
@@ -135,7 +157,7 @@ class Solution
                     break; // Invalid prefix, break the loop
                 }
                 curr = curr->children[ch];
-                if (curr->isEndOfWord && canWordBreak(s, i + 1, root)) 
+                if (curr->isEndOfWord && canWordBreak(s, i + 1, trie.getRoot())) 
                 {
                     return true;
                 }
@@ -147,37 +169,46 @@ class Solution
     public:
         bool wordBreak(string s, vector<string>& wordDict) 
         {
-            root = new TrieNode();
             for (string word : wordDict) 
             {
-                insert(word);
+                trie.insert(word);
             }
-            return canWordBreak(s, 0, root);
+            return canWordBreak(s, 0, trie.getRoot());
         }
 };
-
 */
 
 // Trie and recursion with memoization : AC
+#include <vector>
+#include <string>
+#include <unordered_map>
+
+using namespace std;
+
 class TrieNode 
 {
-public:
-    bool isEndOfWord;
-    unordered_map<char, TrieNode*> children;
+    public:
+        bool isEndOfWord;
+        unordered_map<char, TrieNode*> children;
 
-    TrieNode() 
-    {
-        isEndOfWord = false;
-    }
+        TrieNode() 
+        {
+            isEndOfWord = false;
+        }
 };
 
-class Solution 
+class Trie 
 {
     private:
         TrieNode* root;
-        unordered_map<int, bool> memo; // Memoization map to store results
 
-        void insert(string &word) 
+    public:
+        Trie() 
+        {
+            root = new TrieNode();
+        }
+
+        void insert(string& word) 
         {
             TrieNode* curr = root;
             for (char ch : word) 
@@ -191,7 +222,19 @@ class Solution
             curr->isEndOfWord = true;
         }
 
-        bool canWordBreak(string &s, int start, TrieNode* curr) 
+        TrieNode* getRoot() 
+        {
+            return root;
+        }
+};
+
+class Solution 
+{
+    private:
+        Trie trie;
+        unordered_map<int, bool> memo; // Memoization map to store results
+
+        bool canWordBreak(string& s, int start, TrieNode* curr) 
         {
             int n = s.length();
 
@@ -213,7 +256,7 @@ class Solution
                     break; // Invalid prefix, break the loop
                 }
                 curr = curr->children[ch];
-                if (curr->isEndOfWord && canWordBreak(s, i + 1, root)) 
+                if (curr->isEndOfWord && canWordBreak(s, i + 1, trie.getRoot())) 
                 {
                     memo[start] = true; // Memoize the result
                     return true;
@@ -227,14 +270,14 @@ class Solution
     public:
         bool wordBreak(string s, vector<string>& wordDict) 
         {
-            root = new TrieNode();
             for (string word : wordDict) 
             {
-                insert(word);
+                trie.insert(word);
             }
-            return canWordBreak(s, 0, root);
+            return canWordBreak(s, 0, trie.getRoot());
         }
 };
+
 
 
 
