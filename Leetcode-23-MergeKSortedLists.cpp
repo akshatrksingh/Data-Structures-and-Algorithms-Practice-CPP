@@ -8,6 +8,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+/*
 class Solution 
 {
     public:
@@ -51,5 +53,49 @@ class Solution
             }
             
             return head;
+        }
+};
+*/
+
+class Solution 
+{
+    public:
+        class Compare 
+        {
+            public:
+                bool operator()(const ListNode* a, const ListNode* b) 
+                {
+                    return a->val > b->val;
+                }
+        };
+
+        ListNode* mergeKLists(vector<ListNode*> &lists) 
+        {
+            priority_queue<ListNode*, vector<ListNode*>, Compare> minHeap;
+
+            for (ListNode* list : lists) 
+            {
+                if (list) 
+                {
+                    minHeap.push(list);
+                }
+            }
+
+            ListNode *m = new ListNode(-1);
+            ListNode *n = m;
+
+            while (!minHeap.empty()) 
+            {
+                ListNode* minNode = minHeap.top();
+                minHeap.pop();
+                m->next = minNode;
+                m = m->next;
+                if (minNode->next) 
+                {
+                    minHeap.push(minNode->next);
+                }
+            }
+
+            return n->next; 
         }
 };
