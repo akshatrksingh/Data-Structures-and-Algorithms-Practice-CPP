@@ -1,28 +1,20 @@
 class Solution 
 {
     public:
-        int singleNumber(vector<int> &nums) 
+        int singleNumber(vector<int>& nums) 
         {
-            int n = nums.size();
-            long ans = 0;
-            int x, t;
-            int p = 0;
-            // We have 32 bits integers as input
-            for(int i = 0; i < 32; i++)
+            int result = 0;
+            for (int i = 0; i < 32; i++) 
             {
-                t = 0;
-                //calculate sum of ith bit for all numbers in nums
-                for(int j = 0; j < n; j++)
+                int count = 0;
+                for (int num : nums) 
                 {
-                    x = nums[j] & 1;
-                    t += x;
-                    nums[j] >>= 1;
+                    if ((num >> i) & 1)
+                        count++;
                 }
-                t %= 3;
-                //the bit that does not occur as multiple of 3 is left as a remainder 
-                ans += t*pow(2,p);
-                p++;
+                if (count % 3 != 0)
+                    result |= (1 << i);
             }
-            return ans;
+            return result;
         }
 };
