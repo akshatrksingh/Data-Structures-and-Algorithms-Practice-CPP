@@ -1,3 +1,4 @@
+/* 
 class Solution 
 {
     public:
@@ -29,4 +30,33 @@ class Solution
            v.assign(s.begin(), s.end());
            return v;
        }
+};
+*/
+
+class Solution 
+{
+    public:
+        vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+        {
+            sort(nums.begin(), nums.end());
+            int n = nums.size();
+            int totalSubsets = 1 << n;
+            set<vector<int>> uniqueSubsets;
+
+            for (int mask = 0; mask < totalSubsets; mask++) 
+            {
+                vector<int> subset;
+                for (int i = 0; i < n; i++) 
+                {
+                    if ((mask >> i) & 1) 
+                    {
+                        subset.push_back(nums[i]);
+                    }
+                }
+                uniqueSubsets.insert(subset);
+            }
+
+            vector<vector<int>> result(uniqueSubsets.begin(), uniqueSubsets.end());
+            return result;
+        }
 };
