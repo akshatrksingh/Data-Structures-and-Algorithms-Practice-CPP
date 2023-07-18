@@ -53,15 +53,15 @@ class Solution
 class Solution 
 {
     public:
-        void specialDFSRecursion(vector<vector<char>>& grid, int i, int j, int nrow, int ncol)
+        void dfsRecursion(vector<vector<char>>& grid, int i, int j, int nrow, int ncol)
         {
             if (i >= 0 && i < nrow && j >= 0 && j < ncol && grid[i][j] == '1') 
             {
                 grid[i][j] = '2';  
-                specialDFSRecursion(grid, i + 1, j, nrow, ncol);     
-                specialDFSRecursion(grid, i - 1, j, nrow, ncol);     
-                specialDFSRecursion(grid, i, j + 1, nrow, ncol);     
-                specialDFSRecursion(grid, i, j - 1, nrow, ncol);     
+                dfsRecursion(grid, i + 1, j, nrow, ncol);     
+                dfsRecursion(grid, i - 1, j, nrow, ncol);     
+                dfsRecursion(grid, i, j + 1, nrow, ncol);     
+                dfsRecursion(grid, i, j - 1, nrow, ncol);     
             }
         }
         int numIslands(vector<vector<char>>& grid) 
@@ -75,12 +75,8 @@ class Solution
                 {
                     if (grid[i][j] == '1')
                     {
-                        grid[i][j] = '2';
+                        dfsRecursion(grid, i, j, nrow, ncol);    
                         cnt++;
-                        specialDFSRecursion(grid, i + 1, j, nrow, ncol);     
-                        specialDFSRecursion(grid, i - 1, j, nrow, ncol);     
-                        specialDFSRecursion(grid, i, j + 1, nrow, ncol);     
-                        specialDFSRecursion(grid, i, j - 1, nrow, ncol);    
                     }
                 }
             }
