@@ -3,8 +3,7 @@ class Solution
   public:
   
     vector<bool> vis;
-    vector<int> parent;
-    int cycle_start, cycle_end;
+    // int cycle_start, cycle_end;
     
     bool isCyclicRecursion(int src, int par, vector<int> adjList[])
     {
@@ -15,15 +14,17 @@ class Solution
 		    {   
 		        continue; 
 		    }
-            if(vis[nbr]) 
+            if(vis[nbr] == 0) 
             {
-                cycle_end = src;
-                cycle_start = nbr;
-                return true;
+                if (isCyclicRecursion(nbr, src, adjList))
+                {
+                    return true;
+                }
             }
-            parent[nbr] = src;
-            if (isCyclicRecursion(nbr, parent[nbr], adjList))
+            else if(vis[nbr] == 1) 
             {
+                // cycle_end = src;
+                // cycle_start = nbr;
                 return true;
             }
 		}
@@ -32,10 +33,9 @@ class Solution
     bool isCycle(int V, vector<int> adjList[]) 
     {
         vis.assign(V, false);
-        parent.assign(V, -1);
         for(int i = 0; i < V; i++)
         {
-            if(!vis[i] && isCyclicRecursion(i, parent[i], adjList))
+            if(!vis[i] && isCyclicRecursion(i, -1, adjList))
             {
                 return true;
             }
