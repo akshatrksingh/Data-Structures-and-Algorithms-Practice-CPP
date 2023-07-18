@@ -1,6 +1,7 @@
 class Solution 
 {
     public:
+    
         void dfsRecursion(vector<vector<int>>& grid, int i, int j, int nrow, int ncol) 
         {
             if (i >= 0 && i < nrow && j >= 0 && j < ncol && grid[i][j] == 1) 
