@@ -1,15 +1,23 @@
+/*
+To understand why the code for undirected graph won't work 
+
+Input:
+6 5
+5 3
+3 1
+1 2
+2 4
+4 0
+
+*/
 class Solution 
 {
   public:
-    
-    vector<bool> vis;
-    vector<bool> currPath;
-
-    bool isCyclicRecursion(int src, vector<int> adjList[])
+    bool isCyclicRecursion(int src, bool vis[],  bool currPath[], vector<int> adj[])
     {
         vis[src] = true;
         currPath[src] = true;
-        for(auto nbr: adjList[src])
+        for(auto nbr: adj[src])
 		{
 		    if(currPath[nbr])
 		    {
@@ -17,7 +25,7 @@ class Solution
 		    }
 		    if(!vis[nbr])
 		    {
-		        if(isCyclicRecursion(nbr, adjList))
+		        if(isCyclicRecursion(nbr, vis, currPath, adj))
 		        {
 		            return true;
 		        }
@@ -29,11 +37,16 @@ class Solution
     
     bool isCyclic(int V, vector<int> adj[]) 
     {
-        vis.assign(V, false);
-        currPath.assign(V, false);
+        bool *vis = new bool[V];          // if you take map here it results in TLE
+        bool *currPath = new bool[V];     // if you take map here it results in TLE
         for(int i = 0; i < V; i++)
         {
-            if(!vis[i] && isCyclicRecursion(i, adj))
+            vis[i] = false;
+            currPath[i] = false;
+        }
+        for(int i = 0; i < V; i++)
+        {
+            if(!vis[i] && isCyclicRecursion(i, vis, currPath, adj))
             {
                 return true;
             }
