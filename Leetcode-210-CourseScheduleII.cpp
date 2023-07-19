@@ -1,8 +1,12 @@
 class Solution 
 {
     public:
+        
+        vector<bool> vis;
+        vector<bool> currPath;
         list<int> ordering;
-        bool isCyclicRecursion(int src, bool vis[], bool currPath[], vector<int> adj[])
+    
+        bool isCyclicRecursion(int src, vector<int> adj[])
         {
             vis[src] = true;
             currPath[src] = true;
@@ -14,7 +18,7 @@ class Solution
                 }
                 if(!vis[nbr])
                 {
-                    if(isCyclicRecursion(nbr, vis, currPath, adj))
+                    if(isCyclicRecursion(nbr, adj))
                     {
                         return true;
                     }
@@ -24,6 +28,7 @@ class Solution
             currPath[src] = false;
             return false;
         }
+    
         vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites) 
         {
             //Convert the given edge list to adjacency list
@@ -33,8 +38,9 @@ class Solution
                 adjList[edge[1]].push_back(edge[0]);
             }
             
-            bool *vis = new bool[numCourses];     
-            bool *currPath = new bool[numCourses]; 
+            vis.assign(numCourses, false);
+            currPath.assign(numCourses, false); 
+            
             for(int i = 0; i < numCourses; i++)
             {
                 vis[i] = false;
@@ -42,12 +48,12 @@ class Solution
             }
             for(int i = 0; i < numCourses; i++)
             {
-                if(!vis[i] && isCyclicRecursion(i, vis, currPath, adjList))
+                if(!vis[i] && isCyclicRecursion(i, adjList))
                 {
                     return {};
                 }
             }
-            vector<int> v{begin(ordering), end(ordering)};
+            vector<int> v(ordering.begin(), ordering.end());
             return v;
         }
 };
