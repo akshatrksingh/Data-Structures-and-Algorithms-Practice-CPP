@@ -1,41 +1,41 @@
 class Solution 
 {
   public:
-  
-    vector<int> colour;
-    vector<int> parent;
-    int cycle_start, cycle_end;
-    
-    bool isCyclicRecursion(int src, vector<int> adjList[])
+    map<int, bool> currPath; 
+    bool isCyclicRecursion(int src, bool vis[],  bool currPath[], vector<int> adj[])
     {
-        colour[src] = 1;                // mark visited
-        for(auto nbr: adjList[src])
+        vis[src] = true;
+        currPath[src] = true;
+        for(auto nbr: adj[src])
 		{
-		    if (colour[nbr] == 0)          // check if unvisited
+		    if(currPath[nbr])
 		    {
-                parent[nbr] = src;
-                if (isCyclicRecursion(nbr, adjList))
-                {
-                    return true;
-                }
-            } 
-            else if (colour[nbr] == 1)      // check if visited
-            {
-                cycle_end = src;
-                cycle_start = nbr;
-                return true;
-            }
-		}
-		colour[src] = 2;                 // mark exited
-		return false;
+		        return true;
+		    }
+		    if(!vis[nbr])
+		    {
+		        if(isCyclicRecursion(nbr, vis, currPath, adj))
+		        {
+		            return true;
+		        }
+		 	}
+		 }
+		 currPath[src] = false;
+		 return false;
     }
-    bool isCyclic(int V, vector<int> adjList[]) 
+    
+    bool isCyclic(int V, vector<int> adj[]) 
     {
-        colour.assign(V, 0);   // Mark colours from {0, 1, 2} according to unvisited, visited, and exited accordingly
-        parent.assign(V, -1);
+        bool *vis = new bool[V];
+        bool *currPath = new bool[V];
         for(int i = 0; i < V; i++)
         {
-            if(colour[i] == 0 && isCyclicRecursion(i, adjList))
+            vis[i] = false;
+            currPath[i] = false;
+        }
+        for(int i = 0; i < V; i++)
+        {
+            if(!vis[i] && isCyclicRecursion(i, vis, currPath, adj))
             {
                 return true;
             }
