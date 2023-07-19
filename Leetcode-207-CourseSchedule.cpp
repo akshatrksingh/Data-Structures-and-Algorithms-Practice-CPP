@@ -5,7 +5,11 @@
 class Solution 
 {
     public:
-        bool isCyclicRecursion(int src, bool vis[], bool currPath[], vector<int> adj[])
+    
+        vector<bool> vis;
+        vector<bool> currPath;
+    
+        bool isCyclicRecursion(int src, vector<int> adj[])
         {
             vis[src] = true;
             currPath[src] = true;
@@ -17,7 +21,7 @@ class Solution
                 }
                 if(!vis[nbr])
                 {
-                    if(isCyclicRecursion(nbr, vis, currPath, adj))
+                    if(isCyclicRecursion(nbr, adj))
                     {
                         return true;
                     }
@@ -27,25 +31,21 @@ class Solution
             currPath[src] = false;
             return false;
         }
+    
         bool canFinish(int numCourses, vector<vector<int>> &prerequisites) 
         {
             //Convert the given edge list to adjacency list
             vector<int> adjList[numCourses];
             for(auto edge: prerequisites)
             {
-                adjList[edge[0]].push_back(edge[1]);
+                adjList[edge[1]].push_back(edge[0]);
             }
             
-            bool *vis = new bool[numCourses];     
-            bool *currPath = new bool[numCourses]; 
+            vis.assign(numCourses, false);
+            currPath.assign(numCourses, false);
             for(int i = 0; i < numCourses; i++)
             {
-                vis[i] = false;
-                currPath[i] = false;
-            }
-            for(int i = 0; i < numCourses; i++)
-            {
-                if(!vis[i] && isCyclicRecursion(i, vis, currPath, adjList))
+                if(!vis[i] && isCyclicRecursion(i, adjList))
                 {
                     return false;
                 }
