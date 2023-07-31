@@ -12,7 +12,6 @@ class Solution
        {
            auto best = q.top();   // greedy: get shortest unvisited vertex
            q.pop();
-           int d = best.first;
            int u = best.second;
            for(auto x: adj[u]) 
            {
