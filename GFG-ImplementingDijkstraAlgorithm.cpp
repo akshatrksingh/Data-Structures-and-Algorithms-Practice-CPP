@@ -10,8 +10,9 @@ class Solution
        q.push({0, src});     // {distance, node}      
        while(!q.empty())
        {
-           auto best = q.top();   
+           auto best = q.top();   // greedy: get shortest unvisited vertex
            q.pop();
+           int d = best.first;
            int u = best.second;
            for(auto x: adj[u]) 
            {
