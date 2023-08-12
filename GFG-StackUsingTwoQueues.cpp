@@ -9,16 +9,46 @@ public:
 };
  */
 
-//Function to push an element into stack using two queues.
+/* 
+// Making pop() costly
 void QueueStack :: push(int x)
 {
-    while(!q1.empty())
+    q1.push(x);
+}
+
+//Function to pop an element from stack using two queues. 
+int QueueStack :: pop()
+{
+    if(q1.empty())
+    {
+        return -1;
+    }
+    while(q1.size() > 1)
+    {
+        q2.push(q1.front());
+        q1.pop();
+    }
+    int x = q1.front();
+    q1.pop();
+    while(q2.size())
+    {
+        q1.push(q2.front());
+        q2.pop();
+    }
+    return x;
+}
+*/
+
+// Making push() costly
+void QueueStack :: push(int x)
+{
+    while(q1.size())
     {
         q2.push(q1.front());
         q1.pop();
     }
     q1.push(x);
-    while(!q2.empty())
+    while(q2.size())
     {
         q1.push(q2.front());
         q2.pop();
@@ -29,8 +59,10 @@ void QueueStack :: push(int x)
 int QueueStack :: pop()
 {
     if(q1.empty())
+    {
         return -1;
-    int p = q1.front();
+    }
+    int x = q1.front();
     q1.pop();
-    return p;
+    return x;
 }
