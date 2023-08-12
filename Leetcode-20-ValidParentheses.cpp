@@ -6,24 +6,21 @@ class Solution
             stack<char> st;
             for(char c: s)
             {
-                if(c == '(' || c == '[' || c == '{')
+                if(c == '(' || c == '{' || c == '[')
                 {
                     st.push(c);
                 }
+                else if(st.empty())
+                {
+                    return false;
+                }
+                else if((c == ')' && st.top() == '(') || (c == '}' && st.top() == '{') || (c == ']' && st.top() == '['))
+                {
+                    st.pop();
+                }
                 else
                 {
-                    if(st.empty())
-                    {
-                        return false;
-                    }
-                    else if((st.top() == '(' && c == ')') || (st.top() == '[' && c == ']') || (st.top() == '{' && c == '}'))
-                    {
-                        st.pop();
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return st.empty();
