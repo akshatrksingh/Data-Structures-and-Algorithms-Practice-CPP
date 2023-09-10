@@ -1,46 +1,40 @@
-/* 
-
-struct Node
-{
-    int data;
-    struct Node* next;
-    
-    Node(int x){
-        data = x;
-        next = NULL;
-    }
-};
-
-*/
-
 class Solution
 {
     public:
-        Node* reverse(Node* head)
+    
+        Node* reverse(Node *head)
         {
             Node* prev = NULL;
             Node* curr = head;
-            Node* next = NULL;
+            Node* forw = NULL;
             while(curr != NULL)
             {
-                next = curr->next;
+                forw = curr->next;
                 curr->next = prev;
                 prev = curr;
-                curr = next;
+                curr = forw;
             }
             return prev;
         }
-        Node* addOne(Node* head) 
+        
+        Node* addOne(Node *head) 
         {
             head = reverse(head);
             Node* curr = head;
             Node* prev = NULL;
-            int sum, carry = 1;
+            int carry = 1;
             while(curr != NULL)
-            {   
-                sum = curr->data + carry;
-                curr->data = (sum == 10)? 0: sum;
-                carry = (sum == 10)? 1: 0;
+            {
+                curr->data += carry;
+                if(curr->data == 10)
+                {
+                    curr->data = 0;
+                    carry = 1;
+                }
+                else
+                {
+                    carry = 0;
+                }
                 prev = curr;
                 curr = curr->next;
             }
