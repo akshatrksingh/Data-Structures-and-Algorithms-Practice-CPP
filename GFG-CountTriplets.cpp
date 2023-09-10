@@ -1,28 +1,41 @@
-int countTriplets(Node* head, int x) 
+int countTriplets(struct Node* head, int x) 
 { 
-    unordered_map <int, int> m;
+    unordered_map<int, int> m;
     Node* curr = head;
-    while(curr != NULL)
+    while (curr != NULL)
     {
         m[curr->data] = 1;
         curr = curr->next;
     }
-    Node* t1 = head;
-    Node* t2;
-    int cnt = 0;
-    while(t1->next->next != NULL)
+    if (m.size() < 3)
     {
-        t2 = t1->next;
-        while(t2->next != NULL)
-        {
-           int target = x- t1->data - t2->data;
-           if(target > t1->data && target > t2->data && m[target] == 1)
-           {
-               cnt++;
-           }
-           t2 = t2->next;
-        }
-        t1 = t1->next;
+        return 0;
     }
-    return cnt;
-} 
+    
+    Node* dummy = new Node(-1);
+    dummy->next = head;
+    Node* slow = dummy->next;
+    Node* fast = dummy->next->next;
+    
+    int count = 0;
+    
+    while (slow != NULL)
+    {
+        fast = slow->next;
+        while (fast != NULL)
+        {
+            int remaining_sum = x - (slow->data + fast->data);
+            
+            if (m.find(remaining_sum) != m.end() && remaining_sum != slow->data && remaining_sum != fast->data)
+            {
+                count++;
+            }
+            
+            fast = fast->next;
+        }
+        
+        slow = slow->next;
+    }
+    
+    return count / 3; // Each triplet is counted three times, so divide by 3 to get distinct triplets.
+}
