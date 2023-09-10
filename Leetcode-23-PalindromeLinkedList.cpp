@@ -20,11 +20,10 @@ class Solution
                 slow = slow->next;
                 fast = fast->next->next;
             }
-            if (fast)                         // if the length of the list is odd, fast->next will be NULL but fast will not be NULL, in this case increase the mid by 1 node
-            slow = slow->next;
             return slow;
             
         }
+    
         ListNode* reverseList(ListNode* head)
         {
             ListNode* prev = NULL;
@@ -39,13 +38,12 @@ class Solution
             }
             return prev;
         }
+    
         bool isPalindrome(ListNode* head) 
         {
             if(head == NULL || head->next == NULL)
                 return true;
-            if(head->next->next == NULL)
-                return head->val == head->next->val;
-            
+                
             ListNode* mid = middleNode(head);
             mid = reverseList(mid);
             while(mid != NULL)
