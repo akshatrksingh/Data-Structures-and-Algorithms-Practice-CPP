@@ -13,23 +13,29 @@ class Solution
     public:
         ListNode* oddEvenList(ListNode* head) 
         {
-            if(head == NULL || head->next == NULL)
+            ListNode* dummy1 = new ListNode(-1);
+            ListNode* dummy2 = new ListNode(-1);
+            ListNode* curr = head;
+            ListNode* odd = dummy1;
+            ListNode* even = dummy2;
+            int c = 1;
+            while(curr != NULL)
             {
-                return head;
+                if(c % 2 == 0)
+                {
+                    even->next = curr;
+                    even = even->next;
+                }
+                else
+                {
+                    odd->next = curr;
+                    odd = odd->next;
+                }
+                curr = curr->next;
+                c++;
             }
-            
-            ListNode* odd = head;
-            ListNode* even = head->next;
-            ListNode* connect = even;
-            while(even != NULL && even->next != NULL)
-            {
-                odd->next = even->next;
-                odd = even->next;
-                
-                even->next = odd->next;
-                even = odd->next;
-            }
-            odd->next = connect;
-            return head;
+            odd->next = dummy2->next;
+            even->next = NULL;
+            return dummy1->next;
         }
 };
